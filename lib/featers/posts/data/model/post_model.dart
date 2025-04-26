@@ -6,6 +6,7 @@ class PostModel extends PostEntity {
     required super.title,
     required super.body,
     required super.id,
+    required super.isLoading
   });
 
   factory PostModel.fromJson({required Map<String, dynamic> json}) {
@@ -14,6 +15,7 @@ class PostModel extends PostEntity {
       title: json['title'],
       body: json['body'],
       id: json['id'],
+      isLoading: false
     );
   }
 

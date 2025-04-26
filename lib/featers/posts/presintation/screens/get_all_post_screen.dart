@@ -21,7 +21,7 @@ class GetAllPostScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: state.posts.length,
               itemBuilder: (context, index) {
-                return PostItemWidget(postModel: state.posts[index]);
+                return PostItemWidget(postModel: state.posts[index],index: index,);
               },
             );
           } else if (state is GetAllPostStateError) {

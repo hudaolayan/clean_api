@@ -14,11 +14,11 @@ class GetAllPostCubit extends Cubit<GetAllPostState> {
     getPostsUseCase
         .call()
         .then((posts) {
-          emit(GetAllPostStateSuccess(posts: posts));
-        })
+      emit(GetAllPostStateSuccess(posts: posts));
+    })
         .catchError((error) {
-          emit(GetAllPostStateError(error: error.toString()));
-        });
+      emit(GetAllPostStateError(error: error.toString()));
+    });
   }
 
   addPost({required PostModel postModel}) {
@@ -27,6 +27,33 @@ class GetAllPostCubit extends Cubit<GetAllPostState> {
     if (curentState is GetAllPostStateSuccess) {
       curentState.posts.insert(0, postModel);
       emit(GetAllPostStateSuccess(posts: curentState.posts));
+    }
+  }
+
+  updatePost({required PostModel postModel, required int index}) {
+    var currentState = state;
+    emit(GetAllPostStateLoading());
+    if (currentState is GetAllPostStateSuccess) {
+      currentState.posts[index] = postModel;
+      emit(GetAllPostStateSuccess(posts: currentState.posts));
+    }
+  }
+
+  updateLoading({required int index}) {
+    var currentState = state;
+    emit(GetAllPostStateLoading());
+    if (currentState is GetAllPostStateSuccess) {
+      currentState.posts[index].isLoading = true;
+      emit(GetAllPostStateSuccess(posts: currentState.posts));
+    }
+  }
+
+  deletePost({required int index}) {
+    var currentState = state;
+    emit(GetAllPostStateLoading());
+    if (currentState is GetAllPostStateSuccess) {
+      currentState.posts.removeAt(index);
+      emit(GetAllPostStateSuccess(posts: currentState.posts));
     }
   }
 }

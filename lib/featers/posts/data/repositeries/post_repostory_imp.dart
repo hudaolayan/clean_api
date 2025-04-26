@@ -24,4 +24,26 @@ class PostRepostoryImp extends PostRepostiry {
       userId: userId,
     );
   }
+
+  @override
+  updatePost({
+    required String title,
+    required String body,
+    required int userId,
+    required int id,
+    required int index,
+  }) async {
+    return await remoteDataSource.updatePost(
+      title: title,
+      body: body,
+      userId: userId,
+      id: id,
+      index: index,
+    );
+  }
+
+  @override
+  Future<bool> deletePost({required int id}) async {
+    return await remoteDataSource.deletePost(id: id);
+  }
 }
